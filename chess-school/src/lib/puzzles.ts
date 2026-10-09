@@ -76,23 +76,41 @@ async function finishAttempt(attemptId: string, success: boolean, at: Date = new
   return { ratingBefore: ch.rating, rating, delta: rating - ch.rating, xp, level: after, levelUp: after.level > before, achievements };
 }
 
+function puzzlePayload(attempt: { id: string; step: number }, puzzle: { fen: string; moves: string; title: string; hint: string | null; rating: number; theme: string; code: string }, rating: number, resumed: boolean) {
+  const moves = parseMoves(puzzle.moves);
+  const pos = positionAt(puzzle.fen, moves, attempt.step);
+  const last = attempt.step > 0 ? moves[attempt.step - 1] : null;
+  return {
+    attemptId: attempt.id,
+    fen: pos.fen(),
+    lastMove: last ? [last.slice(0, 2), last.slice(2, 4)] : null,
+    orientation: new Chess(puzzle.fen).turn() === "w" ? "white" as const : "black" as const,
+    title: puzzle.title,
+    hint: puzzle.hint,
+    rating: puzzle.rating,
+    theme: puzzle.theme,
+    code: puzzle.code,
+    character: { rating },
+    resumed,
+  };
+}
+
 /**
- * Следующая задача. Незавершённая предыдущая засчитывается как ошибка.
- * Подбор: случайная задача в окне ±250 от рейтинга персонажа (расширяется, если пусто),
- * без последних 10 показанных. Решённые/нерешённые задачи могут выпасть снова.
+ * Следующая задача. Если есть незавершённая — продолжаем её (обновление страницы не даёт
+ * «пропустить» задачу и не штрафует). Иначе случайная задача в окне ±250 от рейтинга персонажа
+ * (окно расширяется, если пусто), без последних 10 показанных. Решённые/нерешённые задачи могут выпасть снова.
  */
 export async function nextPuzzle(userId: string) {
   const ch = await getActiveCharacter(userId);
   if (!ch) throw new Error("Сначала выберите гроссмейстера");
-  const pending = await db.puzzleAttempt.findMany({ where: { userId, status: "PENDING" } });
-  for (const p of pending) await finishAttempt(p.id, false);
-  const fresh = (await getActiveCharacter(userId))!;
+  const pending = await db.puzzleAttempt.findFirst({ where: { userId, characterId: ch.id, status: "PENDING" }, include: { puzzle: true }, orderBy: { createdAt: "desc" } });
+  if (pending) return puzzlePayload(pending, pending.puzzle, ch.rating, true);
   const recent = await db.puzzleAttempt.findMany({ where: { userId }, orderBy: { createdAt: "desc" }, take: 10, select: { puzzleId: true } });
   const exclude = recent.map((r) => r.puzzleId);
   let pool: { id: string }[] = [];
   for (const w of [250, 400, 700, 5000]) {
     pool = await db.puzzle.findMany({
-      where: { active: true, rating: { gte: fresh.rating - w, lte: fresh.rating + w }, id: { notIn: exclude } },
+      where: { active: true, rating: { gte: ch.rating - w, lte: ch.rating + w }, id: { notIn: exclude } },
       select: { id: true },
     });
     if (pool.length) break;
@@ -101,20 +119,8 @@ export async function nextPuzzle(userId: string) {
   if (!pool.length) throw new Error("В базе нет задач");
   const pick = pool[Math.floor(Math.random() * pool.length)];
   const puzzle = await db.puzzle.findUniqueOrThrow({ where: { id: pick.id } });
-  const attempt = await db.puzzleAttempt.create({ data: { userId, characterId: fresh.id, puzzleId: puzzle.id, ratingBefore: fresh.rating } });
-  const turn = new Chess(puzzle.fen).turn();
-  return {
-    attemptId: attempt.id,
-    fen: puzzle.fen,
-    orientation: turn === "w" ? "white" as const : "black" as const,
-    title: puzzle.title,
-    hint: puzzle.hint,
-    rating: puzzle.rating,
-    theme: puzzle.theme,
-    code: puzzle.code,
-    character: { rating: fresh.rating },
-    penalized: pending.length > 0,
-  };
+  const attempt = await db.puzzleAttempt.create({ data: { userId, characterId: ch.id, puzzleId: puzzle.id, ratingBefore: ch.rating } });
+  return puzzlePayload(attempt, puzzle, ch.rating, false);
 }
 
 /**

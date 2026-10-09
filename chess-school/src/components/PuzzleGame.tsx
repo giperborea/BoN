@@ -8,7 +8,7 @@ import { nextPuzzleAction, submitMoveAction, giveUpAction } from "@/app/actions/
 
 type Puzzle = {
   attemptId: string; fen: string; orientation: "white" | "black"; title: string; hint: string | null;
-  rating: number; theme: string; code: string; penalized: boolean;
+  rating: number; theme: string; code: string; resumed: boolean; lastMove: string[] | null;
 };
 type LevelInfo = { level: number; title: string; icon: string; xpInto: number; xpNeed: number; progress: number };
 type Finish = {
@@ -70,13 +70,14 @@ export function PuzzleGame({ initialRating, initialLevel, characterName }: {
     chess.current = new Chess(p.fen);
     setPuzzle(p);
     setRating(p.character.rating);
-    sync(undefined);
+    sync((p.lastMove as Key[] | null) ?? undefined);
     setStatus("playing");
     setMessage(p.orientation === "white" ? "Ход белых — найдите лучший ход" : "Ход чёрных — найдите лучший ход");
-    if (p.penalized) toast("Прошлая задача не была решена и засчитана как ошибка");
+    if (p.resumed) toast("Продолжаем незавершённую задачу");
   }, [sync]);
 
-  useEffect(() => { load(); }, [load]);
+  const started = useRef(false);
+  useEffect(() => { if (started.current) return; started.current = true; load(); }, [load]);
 
   const applyFinish = (res: Finish) => {
     setFinish(res);
