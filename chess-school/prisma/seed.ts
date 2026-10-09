@@ -276,7 +276,8 @@ async function main() {
         if (!pool.length) pool = puzzles;
         const pz = pick(pool);
         recent.unshift(pz.id); recent.length = Math.min(recent.length, 10);
-        const strength = rating + 120 + s.skill * 500 + Math.min(300, k * 2);
+        // «истинная сила» ученика: 1040–1460 плюс медленный рост от практики
+        const strength = 1250 + s.skill * 700 + Math.min(150, k * 0.8);
         const success = chance(1 / (1 + Math.pow(10, (pz.rating - strength) / 400)));
         const d = ratingDelta(rating, pz.rating, success, solved + failed);
         const before = rating;

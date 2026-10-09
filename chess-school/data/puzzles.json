@@ -1,5 +1,648 @@
 [
- {"code":"T001","fen":"6k1/5ppp/8/8/8/8/5PPP/R5K1 w - - 0 1","moves":["a1a8"],"rating":1000,"theme":"mateIn1","title":"Тест 1","hint":"Последняя горизонталь"},
- {"code":"T002","fen":"r1bqkbnr/pppp1ppp/2n5/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR w KQkq - 4 4","moves":["h5f7"],"rating":1100,"theme":"mateIn1","title":"Тест 2","hint":"Детский мат"},
- {"code":"T003","fen":"6k1/5ppp/8/8/8/8/5PPP/R5K1 w - - 0 1","moves":["a1a8"],"rating":1300,"theme":"backRank","title":"Тест 3","hint":""}
+  {
+    "code": "P001",
+    "fen": "r1bqkb1r/pppp1ppp/2n2n2/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR w KQkq - 4 4",
+    "moves": [
+      "h5f7"
+    ],
+    "rating": 1000,
+    "theme": "mateIn1",
+    "title": "Детский мат",
+    "hint": "Пешку f7 защищает только король, а ферзя поддерживает слон c4."
+  },
+  {
+    "code": "P002",
+    "fen": "rnbqkbnr/pppp1ppp/8/4p3/6P1/5P2/PPPPP2P/RNBQKBNR b KQkq - 0 2",
+    "moves": [
+      "d8h4"
+    ],
+    "rating": 1005,
+    "theme": "mateIn1",
+    "title": "Дурацкий мат",
+    "hint": "Диагональ от h4 до белого короля полностью открыта."
+  },
+  {
+    "code": "P003",
+    "fen": "r1b2rk1/1pq3pp/p2N4/n1b1pp2/2Q5/1B1P4/PPP2PPP/R1B2RK1 b - - 0 1",
+    "moves": [
+      "a5c4"
+    ],
+    "rating": 1015,
+    "theme": "hangingPiece",
+    "title": "Ферзь под ударом",
+    "hint": "Посмотрите, на что нападает конь a5."
+  },
+  {
+    "code": "P004",
+    "fen": "6k1/5ppp/8/q7/8/8/P4PPP/4R1K1 w - - 0 1",
+    "moves": [
+      "e1e8"
+    ],
+    "rating": 1025,
+    "theme": "backRank",
+    "title": "Мат по последней горизонтали",
+    "hint": "Чёрный король заперт собственными пешками."
+  },
+  {
+    "code": "P005",
+    "fen": "3r2k1/pp3ppp/8/2N5/8/8/PP3PPP/6K1 b - - 0 1",
+    "moves": [
+      "d8d1"
+    ],
+    "rating": 1035,
+    "theme": "backRank",
+    "title": "Слабая первая горизонталь",
+    "hint": "У белого короля нет «форточки», а ладья d8 смотрит на открытую вертикаль."
+  },
+  {
+    "code": "P006",
+    "fen": "8/8/8/8/8/3k4/1r6/3K4 b - - 0 1",
+    "moves": [
+      "b2b1"
+    ],
+    "rating": 1045,
+    "theme": "mateIn1",
+    "title": "Мат ладьёй и королём",
+    "hint": "Короли стоят друг против друга — ладья даёт мат сбоку."
+  },
+  {
+    "code": "P007",
+    "fen": "6rk/p5pp/8/4N3/8/2q5/P5PP/3R2K1 w - - 0 1",
+    "moves": [
+      "e5f7"
+    ],
+    "rating": 1060,
+    "theme": "mateIn1",
+    "title": "Спёртый мат",
+    "hint": "Король окружён своими фигурами. Какая фигура перепрыгнет к нему?"
+  },
+  {
+    "code": "P008",
+    "fen": "2r3k1/pp3ppp/8/8/4n3/1Q6/PP4PP/3R2RK b - - 0 1",
+    "moves": [
+      "e4f2"
+    ],
+    "rating": 1070,
+    "theme": "mateIn1",
+    "title": "Спёртый мат конём",
+    "hint": "Белому королю некуда отступить: g1 и g2, h2 заняты своими."
+  },
+  {
+    "code": "P009",
+    "fen": "r4rk1/pp3ppp/2q5/3N4/8/8/PPP2PPP/R2Q1RK1 w - - 0 1",
+    "moves": [
+      "d5e7",
+      "g8h8",
+      "e7c6"
+    ],
+    "rating": 1085,
+    "theme": "fork",
+    "title": "Королевская вилка",
+    "hint": "Конь может дать шах и одновременно напасть на ферзя."
+  },
+  {
+    "code": "P010",
+    "fen": "r4r2/pp2Nppk/8/8/8/3R4/PP3PPP/6K1 w - - 0 1",
+    "moves": [
+      "d3h3"
+    ],
+    "rating": 1100,
+    "theme": "mateIn1",
+    "title": "Мат Анастасии",
+    "hint": "Конь e7 отнимает у короля поля g6 и g8. Нужна ладья на вертикали h."
+  },
+  {
+    "code": "P011",
+    "fen": "r2q1rk1/pp3ppp/8/8/3n4/2Q5/PP3PPP/R4RK1 b - - 0 1",
+    "moves": [
+      "d4e2",
+      "g1h1",
+      "e2c3"
+    ],
+    "rating": 1115,
+    "theme": "fork",
+    "title": "Конская вилка",
+    "hint": "Найдите шах конём, который нападает ещё и на ферзя c3."
+  },
+  {
+    "code": "P012",
+    "fen": "6k1/5ppp/8/8/8/P4n2/1r5P/3R3K b - - 0 1",
+    "moves": [
+      "b2h2"
+    ],
+    "rating": 1130,
+    "theme": "mateIn1",
+    "title": "Арабский мат",
+    "hint": "Конь f3 защищает поле h2 и держит поле g1."
+  },
+  {
+    "code": "P013",
+    "fen": "6r1/7p/5pp1/p2k4/8/1P4P1/P4P1P/5BK1 w - - 0 1",
+    "moves": [
+      "f1c4",
+      "d5c5",
+      "c4g8"
+    ],
+    "rating": 1150,
+    "theme": "skewer",
+    "title": "Сквозной удар слоном",
+    "hint": "Дайте шах так, чтобы за королём оказалась ладья g8."
+  },
+  {
+    "code": "P014",
+    "fen": "3r4/ppqb1kpp/2p5/8/4Q3/8/PPP2PPP/4KB1R b - - 0 1",
+    "moves": [
+      "d8e8"
+    ],
+    "rating": 1170,
+    "theme": "pin",
+    "title": "Связка ферзя",
+    "hint": "Белые ферзь и король стоят на одной вертикали."
+  },
+  {
+    "code": "P015",
+    "fen": "2kr3r/p2nqppp/2p5/8/5B2/2N5/PPP2PPP/2KR1B1R w - - 0 1",
+    "moves": [
+      "f1a6"
+    ],
+    "rating": 1190,
+    "theme": "mateIn1",
+    "title": "Мат Бодена",
+    "hint": "Два слона бьют крест-накрест. Поле b7 свободно."
+  },
+  {
+    "code": "P016",
+    "fen": "r5k1/p1qb2pp/1p3p2/8/8/2NQ4/PP3PPP/4R1K1 w - - 0 1",
+    "moves": [
+      "d3d5",
+      "g8f8",
+      "d5a8"
+    ],
+    "rating": 1200,
+    "theme": "fork",
+    "title": "Двойной удар ферзём",
+    "hint": "Шах королю и одновременно нападение на ладью a8."
+  },
+  {
+    "code": "P017",
+    "fen": "r3kb1r/pp1q1ppp/n3pn2/2p5/P3P3/2N2N2/1PQ2PPP/R1B1KB1R w KQkq - 0 1",
+    "moves": [
+      "f1b5"
+    ],
+    "rating": 1215,
+    "theme": "pin",
+    "title": "Связка слоном",
+    "hint": "Ферзь d7 и король e8 стоят на одной диагонали."
+  },
+  {
+    "code": "P018",
+    "fen": "2r3k1/p4ppp/1p6/8/8/8/1q1R1PPP/3Q2K1 w - - 0 1",
+    "moves": [
+      "d2d8",
+      "c8d8",
+      "d1d8"
+    ],
+    "rating": 1230,
+    "theme": "backRank",
+    "title": "Ладья впереди, ферзь сзади",
+    "hint": "Сначала шах ладьёй, а ферзь добьёт на том же поле."
+  },
+  {
+    "code": "P019",
+    "fen": "4r1k1/p3qppp/1p6/3Q4/8/P7/1P3PPP/2R3K1 b - - 0 1",
+    "moves": [
+      "e7e1",
+      "c1e1",
+      "e8e1"
+    ],
+    "rating": 1250,
+    "theme": "backRank",
+    "title": "Жертва ферзя на e1",
+    "hint": "Отвлеките белую ладью с первой горизонтали."
+  },
+  {
+    "code": "P020",
+    "fen": "3r2k1/pp1r1ppp/2Q5/8/8/8/PP3PPP/2R3K1 b - - 0 1",
+    "moves": [
+      "d7d1",
+      "c1d1",
+      "d8d1"
+    ],
+    "rating": 1265,
+    "theme": "backRank",
+    "title": "Батарея ладей",
+    "hint": "Две ладьи на открытой вертикали сильнее одной защитницы."
+  },
+  {
+    "code": "P021",
+    "fen": "r3r1k1/pp2bppp/2p5/7Q/8/3B4/PPP2PPP/R5K1 w - - 0 1",
+    "moves": [
+      "h5h7",
+      "g8f8",
+      "h7h8"
+    ],
+    "rating": 1280,
+    "theme": "mateIn2",
+    "title": "Ферзь и слон против короля",
+    "hint": "Слон d3 поддерживает ферзя на h7. Куда уйдёт король?"
+  },
+  {
+    "code": "P022",
+    "fen": "3r1rk1/ppq2ppp/3b4/8/3QP3/2N5/PPP2PPP/R1B2RK1 b - - 0 1",
+    "moves": [
+      "d6h2",
+      "g1h1",
+      "d8d4"
+    ],
+    "rating": 1300,
+    "theme": "discoveredAttack",
+    "title": "Вскрытое нападение",
+    "hint": "Уйдите слоном с шахом — и ладья d8 нападёт на ферзя."
+  },
+  {
+    "code": "P023",
+    "fen": "r2q1rk1/p4ppp/1p3n2/8/1B2P3/8/PP2Q1PP/R4RK1 b - - 0 1",
+    "moves": [
+      "d8d4",
+      "g1h1",
+      "d4b4"
+    ],
+    "rating": 1315,
+    "theme": "fork",
+    "title": "Шах и нападение",
+    "hint": "Ферзь может дать шах и одновременно напасть на слона b4."
+  },
+  {
+    "code": "P024",
+    "fen": "7r/6k1/p2b1p2/1p4p1/8/P5P1/1Q3K2/R7 b - - 0 1",
+    "moves": [
+      "h8h2",
+      "f2g1",
+      "h2b2"
+    ],
+    "rating": 1330,
+    "theme": "skewer",
+    "title": "Сквозной шах ладьёй",
+    "hint": "Белые король и ферзь стоят на одной горизонтали."
+  },
+  {
+    "code": "P025",
+    "fen": "rn1qkbnr/ppp2p1p/3p2p1/4N3/2B1P3/2N5/PPPP1PPP/R1BbK2R w KQkq - 0 6",
+    "moves": [
+      "c4f7",
+      "e8e7",
+      "c3d5"
+    ],
+    "rating": 1350,
+    "theme": "mateIn2",
+    "title": "Мат Легаля",
+    "hint": "Не бойтесь отдать ферзя: начните с шаха на f7."
+  },
+  {
+    "code": "P026",
+    "fen": "6k1/pQ3ppp/8/5r2/7q/8/PP2nPPP/2R2R1K b - - 0 1",
+    "moves": [
+      "h4h2",
+      "h1h2",
+      "f5h5"
+    ],
+    "rating": 1370,
+    "theme": "sacrifice",
+    "title": "Жертва ферзя на h2",
+    "hint": "Конь e2 держит поля g1 и g3 — после взятия на h2 ладья завершит атаку."
+  },
+  {
+    "code": "P027",
+    "fen": "2kr3r/pp3ppp/2n1pq2/8/1b3B2/2N2Q2/PPP2PPP/1K1R1B1R w - - 0 1",
+    "moves": [
+      "f3c6",
+      "b7c6",
+      "f1a6"
+    ],
+    "rating": 1395,
+    "theme": "sacrifice",
+    "title": "Мат Бодена с жертвой",
+    "hint": "Отдайте ферзя, чтобы вскрыть поле b7 для слона."
+  },
+  {
+    "code": "P028",
+    "fen": "rnbqkbnr/pppp2pp/8/4p3/4P3/8/PPPP1PPP/RNBQKB1R w KQkq - 0 4",
+    "moves": [
+      "d1h5",
+      "g7g6",
+      "h5e5"
+    ],
+    "rating": 1420,
+    "theme": "fork",
+    "title": "Ловушка в защите Дамиано",
+    "hint": "Ферзь шахует с h5, а затем забирает пешку e5 с двойным ударом."
+  },
+  {
+    "code": "P029",
+    "fen": "r6r/pp2qpk1/6p1/8/8/8/PP1Q1PPP/6RK b - - 0 1",
+    "moves": [
+      "h8h2",
+      "h1h2",
+      "e7h4"
+    ],
+    "rating": 1440,
+    "theme": "sacrifice",
+    "title": "Жертва ладьи на h2",
+    "hint": "После взятия на h2 белый король попадёт под шах ферзя по вертикали h."
+  },
+  {
+    "code": "P030",
+    "fen": "r1b2r1k/pp4pp/2p4N/q7/2Q5/8/PP3PPP/3R2K1 w - - 0 1",
+    "moves": [
+      "c4g8",
+      "f8g8",
+      "h6f7"
+    ],
+    "rating": 1470,
+    "theme": "sacrifice",
+    "title": "Мат Филидора",
+    "hint": "Жертва ферзя на g8 заставит ладью запереть собственного короля."
+  },
+  {
+    "code": "P031",
+    "fen": "r2q1rk1/pp2bppp/4pn2/6B1/3P3Q/2NB4/PP3PPP/R3R1K1 w - - 0 1",
+    "moves": [
+      "g5f6"
+    ],
+    "rating": 1500,
+    "theme": "removeDefender",
+    "title": "Уничтожение защитника",
+    "hint": "Какая фигура защищает поле h7?"
+  },
+  {
+    "code": "P032",
+    "fen": "8/8/1p4p1/p3kp2/7Q/6P1/5PK1/q7 w - - 0 1",
+    "moves": [
+      "h4h8"
+    ],
+    "rating": 1520,
+    "theme": "skewer",
+    "title": "Рентген по большой диагонали",
+    "hint": "Король и ферзь чёрных стоят на одной диагонали a1–h8."
+  },
+  {
+    "code": "P033",
+    "fen": "r4rk1/pp3ppp/8/2q5/4P3/1QN4n/PP4PP/2B2R1K b - - 0 1",
+    "moves": [
+      "c5g1",
+      "f1g1",
+      "h3f2"
+    ],
+    "rating": 1540,
+    "theme": "sacrifice",
+    "title": "Спёртый мат с жертвой",
+    "hint": "Ферзь идёт под бой, чтобы ладья заперла своего короля."
+  },
+  {
+    "code": "P034",
+    "fen": "r4rk1/pp1q2pp/8/8/8/5pP1/PP3P1P/RN3RK1 b - - 0 1",
+    "moves": [
+      "d7h3",
+      "g3g4",
+      "h3g2"
+    ],
+    "rating": 1560,
+    "theme": "mateIn2",
+    "title": "Тихий ход",
+    "hint": "Пешка f3 поддержит ферзя на g2. Не спешите с шахами."
+  },
+  {
+    "code": "P035",
+    "fen": "r1b1kbnr/pppp1ppp/2n5/4P3/8/2B2N2/PqP1PPPP/RN1QKB1R b KQkq - 1 6",
+    "moves": [
+      "f8b4",
+      "c3b4",
+      "c6b4"
+    ],
+    "rating": 1580,
+    "theme": "pin",
+    "title": "Ловушка гамбита Энглунда",
+    "hint": "Слон c3 стоит на одной диагонали с белым королём."
+  },
+  {
+    "code": "P036",
+    "fen": "r1b1kb1r/ppqp1ppp/2n1p3/8/2B1P1n1/2N2N1P/PP2QPP1/R1B2RK1 b kq - 0 9",
+    "moves": [
+      "c6d4",
+      "h3g4",
+      "d4e2"
+    ],
+    "rating": 1600,
+    "theme": "fork",
+    "title": "Сибирская ловушка",
+    "hint": "Конь нападает на ферзя и открывает угрозу мата на h2."
+  },
+  {
+    "code": "P037",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 0 16",
+    "moves": [
+      "b3b8",
+      "d7b8",
+      "d1d8"
+    ],
+    "rating": 1620,
+    "theme": "sacrifice",
+    "title": "Партия в опере",
+    "hint": "Жертва ферзя уводит коня d7, и ладья по открытой вертикали даёт мат при поддержке слона g5."
+  },
+  {
+    "code": "P038",
+    "fen": "r3kb1r/pq1p1ppp/2p2n2/8/4N3/8/PPP2PPP/R1BQR1K1 w kq - 0 1",
+    "moves": [
+      "e4f6",
+      "e8d8",
+      "e1e8"
+    ],
+    "rating": 1650,
+    "theme": "discoveredAttack",
+    "title": "Двойной шах",
+    "hint": "Двойной шах — от него нельзя закрыться и нельзя побить обе фигуры."
+  },
+  {
+    "code": "P039",
+    "fen": "rnbqk1nr/ppp2ppp/8/4P3/1BP5/8/PP2KpPP/RN1Q1BNR b kq - 1 7",
+    "moves": [
+      "f2g1n",
+      "e2e1",
+      "d8h4"
+    ],
+    "rating": 1680,
+    "theme": "promotion",
+    "title": "Ловушка Ласкера",
+    "hint": "Превращать пешку можно не только в ферзя!"
+  },
+  {
+    "code": "P040",
+    "fen": "R7/P4k2/8/8/8/8/r7/7K w - - 0 1",
+    "moves": [
+      "a8h8",
+      "a2a7",
+      "h8h7",
+      "f7e6",
+      "h7a7"
+    ],
+    "rating": 1710,
+    "theme": "skewer",
+    "title": "Ладейный рентген",
+    "hint": "Уведите ладью с дороги пешки так, чтобы потом напасть на короля и ладью сразу."
+  },
+  {
+    "code": "P041",
+    "fen": "6k1/ppp5/8/PPP5/8/8/5PPP/6K1 w - - 0 1",
+    "moves": [
+      "b5b6",
+      "c7b6",
+      "a5a6",
+      "b7a6",
+      "c5c6",
+      "g8f8",
+      "c6c7",
+      "f8e7",
+      "c7c8q"
+    ],
+    "rating": 1740,
+    "theme": "promotion",
+    "title": "Пешечный прорыв",
+    "hint": "Три пешки против трёх: пожертвуйте одну, чтобы прорваться в ферзи."
+  },
+  {
+    "code": "P042",
+    "fen": "r1b2rk1/pp3ppp/1q2p3/3N3Q/8/5R2/PPP2PPP/6K1 w - - 0 1",
+    "moves": [
+      "d5e7",
+      "g8h8",
+      "h5h7",
+      "h8h7",
+      "f3h3"
+    ],
+    "rating": 1770,
+    "theme": "mateIn3",
+    "title": "Мат Анастасии с жертвой",
+    "hint": "Конь с шахом на e7, потом жертва ферзя на h7."
+  },
+  {
+    "code": "P043",
+    "fen": "1R6/2P5/3pk3/7R/4P3/5P2/7p/5K2 w - - 0 1",
+    "moves": [
+      "c7c8q",
+      "e6f6",
+      "c8f5",
+      "f6e7",
+      "h5h7"
+    ],
+    "rating": 1800,
+    "theme": "mateIn3",
+    "title": "Новый ферзь даёт мат",
+    "hint": "Превратите пешку с шахом и гоните короля к ладьям."
+  },
+  {
+    "code": "P044",
+    "fen": "r4rk1/pp3ppp/8/2q5/8/1Q6/PP3nPP/R4RK1 b - - 0 1",
+    "moves": [
+      "f2h3",
+      "g1h1",
+      "c5g1",
+      "f1g1",
+      "h3f2"
+    ],
+    "rating": 1830,
+    "theme": "mateIn3",
+    "title": "Наследство Филидора",
+    "hint": "Двойной шах конём, затем жертва ферзя на g1."
+  },
+  {
+    "code": "P045",
+    "fen": "r1b2rk1/pp3Npp/2p5/q7/2Q5/8/PP3PPP/3R2K1 w - - 0 1",
+    "moves": [
+      "f7h6",
+      "g8h8",
+      "c4g8",
+      "f8g8",
+      "h6f7"
+    ],
+    "rating": 1850,
+    "theme": "mateIn3",
+    "title": "Двойной шах и спёртый мат",
+    "hint": "Двойной шах загонит короля в угол, а жертва ферзя на g8 закроет его."
+  },
+  {
+    "code": "P046",
+    "fen": "r2q1rk1/pp3pp1/2p5/6N1/8/7R/PPP2PPP/3Q2K1 w - - 0 1",
+    "moves": [
+      "h3h8",
+      "g8h8",
+      "d1h5",
+      "h8g8",
+      "h5h7"
+    ],
+    "rating": 1870,
+    "theme": "mateIn3",
+    "title": "Жертва ладьи на h8",
+    "hint": "Вскройте вертикаль h: ладья жертвуется, ферзь приходит на h5."
+  },
+  {
+    "code": "P047",
+    "fen": "6k1/5ppp/8/8/8/8/1rr3PP/R4RK1 b - - 0 1",
+    "moves": [
+      "c2g2",
+      "g1h1",
+      "g2h2",
+      "h1g1",
+      "b2g2"
+    ],
+    "rating": 1890,
+    "theme": "mateIn3",
+    "title": "Ладьи на седьмой горизонтали",
+    "hint": "Две ладьи на второй горизонтали сметают пешки вокруг короля."
+  },
+  {
+    "code": "P048",
+    "fen": "r1b1k1nr/p2p1ppp/n2B4/1p1NPN1P/6P1/3P1Q2/P1P1K3/q5b1 w kq - 2 21",
+    "moves": [
+      "f5g7",
+      "e8d8",
+      "f3f6",
+      "g8f6",
+      "d6e7"
+    ],
+    "rating": 1920,
+    "theme": "mateIn3",
+    "title": "Бессмертная партия",
+    "hint": "Шах конём, затем жертва ферзя, чтобы отвлечь коня g8 от поля e7."
+  },
+  {
+    "code": "P049",
+    "fen": "rnb1kb1r/pp3ppp/2p5/4q3/4n3/3Q4/PPPB1PPP/2KR1BNR w kq - 0 9",
+    "moves": [
+      "d3d8",
+      "e8d8",
+      "d2g5",
+      "d8e8",
+      "d1d8"
+    ],
+    "rating": 1950,
+    "theme": "mateIn3",
+    "title": "Рети – Тартаковер",
+    "hint": "Жертва ферзя на d8 и двойной шах слоном."
+  },
+  {
+    "code": "P050",
+    "fen": "1r4r1/pbpknp1p/1b3P2/8/8/B1PB1q2/P4PPP/3R2K1 w - - 0 22",
+    "moves": [
+      "d3f5",
+      "d7e8",
+      "f5d7",
+      "e8f8",
+      "a3e7"
+    ],
+    "rating": 1990,
+    "theme": "mateIn3",
+    "title": "Вечнозелёная партия",
+    "hint": "Двойной шах слоном f5 — и король не уйдёт от мата."
+  }
 ]
