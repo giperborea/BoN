@@ -1,0 +1,5 @@
+[
+ {"code":"T001","fen":"6k1/5ppp/8/8/8/8/5PPP/R5K1 w - - 0 1","moves":["a1a8"],"rating":1000,"theme":"mateIn1","title":"Тест 1","hint":"Последняя горизонталь"},
+ {"code":"T002","fen":"r1bqkbnr/pppp1ppp/2n5/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR w KQkq - 4 4","moves":["h5f7"],"rating":1100,"theme":"mateIn1","title":"Тест 2","hint":"Детский мат"},
+ {"code":"T003","fen":"6k1/5ppp/8/8/8/8/5PPP/R5K1 w - - 0 1","moves":["a1a8"],"rating":1300,"theme":"backRank","title":"Тест 3","hint":""}
+]

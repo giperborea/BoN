@@ -1,0 +1,14 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      SESSION_SECRET: "change-me-to-a-long-random-string-0123456789"
+      TEST_MODE: "true"
+      APP_URL: "http://localhost:3000"
+      LICHESS_CLIENT_ID: "bon-chess-school"
+    volumes:
+      - school-db:/app/db
+volumes:
+  school-db:
