@@ -1,0 +1,271 @@
+// Пилот: SQLite. Для продакшена достаточно сменить provider на "postgresql"
+// и DATABASE_URL — модели совместимы.
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// role: ADMIN | COACH | STUDENT | PARENT
+model User {
+  id           String   @id @default(cuid())
+  login        String   @unique
+  passwordHash String
+  name         String
+  role         String
+  phone        String?
+  notes        String?
+  createdAt    DateTime @default(now())
+
+  // Lichess (обязателен для учеников и тренеров)
+  lichessUsername String?
+  lichessToken    String?
+  lichessLinkedAt DateTime?
+
+  // Согласие на обработку ПД (спрашивается при первом входе ученика/родителя)
+  consentAt         DateTime?
+  consentType       String? // SELF | PARENT
+  consentParentName String?
+
+  // Ученик
+  coachId       String?
+  coach         User?   @relation("CoachStudents", fields: [coachId], references: [id])
+  students      User[]  @relation("CoachStudents")
+  parentId      String?
+  parent        User?   @relation("ParentChildren", fields: [parentId], references: [id])
+  children      User[]  @relation("ParentChildren")
+  lessonBalance Int     @default(0)
+  packs         Int     @default(0)
+  shards        Int     @default(0)
+  starterTaken  Boolean @default(false)
+
+  payments        Payment[]        @relation("StudentPayments")
+  paymentsCreated Payment[]        @relation("PaymentCreator")
+  ledger          BalanceTx[]      @relation("StudentLedger")
+  lessons         Lesson[]         @relation("StudentLessons")
+  coachLessons    Lesson[]         @relation("CoachLessons")
+  reschedules     Reschedule[]     @relation("StudentReschedules")
+  reschedulesBy   Reschedule[]     @relation("RescheduleInitiator")
+  studies         Study[]          @relation("StudentStudies")
+  coachStudies    Study[]          @relation("CoachStudies")
+  collection      CollectionItem[]
+  packOpenings    PackOpening[]
+  characters      Character[]
+  attempts        PuzzleAttempt[]
+  achievements    UserAchievement[]
+  puzzlesCreated  Puzzle[]
+}
+
+model Payment {
+  id          String   @id @default(cuid())
+  studentId   String
+  student     User     @relation("StudentPayments", fields: [studentId], references: [id])
+  amountRub   Int
+  lessons     Int
+  packs       Int
+  comment     String?
+  createdById String?
+  createdBy   User?    @relation("PaymentCreator", fields: [createdById], references: [id])
+  createdAt   DateTime @default(now())
+}
+
+// Журнал движения баланса занятий — каждое изменение фиксируется.
+// reason: PAYMENT | LESSON_START | LATE_RESCHEDULE | LATE_CANCEL | MANUAL
+model BalanceTx {
+  id          String   @id @default(cuid())
+  studentId   String
+  student     User     @relation("StudentLedger", fields: [studentId], references: [id])
+  delta       Int
+  balance     Int
+  reason      String
+  comment     String?
+  lessonId    String?
+  paymentId   String?
+  createdById String?
+  createdAt   DateTime @default(now())
+}
+
+// status: SCHEDULED | STARTED | DONE | CANCELLED
+model Lesson {
+  id          String       @id @default(cuid())
+  studentId   String
+  student     User         @relation("StudentLessons", fields: [studentId], references: [id])
+  coachId     String
+  coach       User         @relation("CoachLessons", fields: [coachId], references: [id])
+  scheduledAt DateTime
+  durationMin Int          @default(60)
+  status      String       @default("SCHEDULED")
+  startedAt   DateTime?
+  finishedAt  DateTime?
+  topic       String?
+  createdAt   DateTime     @default(now())
+  reschedules Reschedule[]
+  studies     Study[]
+
+  @@index([coachId, scheduledAt])
+  @@index([studentId, scheduledAt])
+}
+
+// kind: RESCHEDULE | CANCEL. charged=true — занятие списано (менее 2 часов до начала)
+model Reschedule {
+  id            String    @id @default(cuid())
+  lessonId      String
+  lesson        Lesson    @relation(fields: [lessonId], references: [id])
+  studentId     String
+  student       User      @relation("StudentReschedules", fields: [studentId], references: [id])
+  kind          String
+  fromTime      DateTime
+  toTime        DateTime?
+  hoursBefore   Float
+  charged       Boolean
+  reason        String?
+  initiatedById String?
+  initiatedBy   User?     @relation("RescheduleInitiator", fields: [initiatedById], references: [id])
+  createdAt     DateTime  @default(now())
+}
+
+// category: LESSON (занятие) | HOMEWORK (домашка) | TODO (доделать)
+model Study {
+  id             String    @id @default(cuid())
+  lichessStudyId String
+  name           String
+  url            String
+  category       String
+  studentId      String
+  student        User      @relation("StudentStudies", fields: [studentId], references: [id])
+  coachId        String
+  coach          User      @relation("CoachStudies", fields: [coachId], references: [id])
+  lessonId       String?
+  lesson         Lesson?   @relation(fields: [lessonId], references: [id])
+  grade          Int?
+  gradeComment   String?
+  gradedAt       DateTime?
+  doneAt         DateTime?
+  createdAt      DateTime  @default(now())
+}
+
+// rarity: COMMON | RARE | EPIC | LEGENDARY
+model Grandmaster {
+  id              String           @id @default(cuid())
+  rank            Int              @unique
+  slug            String           @unique
+  name            String
+  nameEn          String
+  country         String
+  born            Int?
+  died            Int?
+  worldChampion   Boolean          @default(false)
+  wcNumber        Int?
+  peakRating      Int?
+  style           String?
+  fact            String?
+  rarity          String
+  fragmentsNeeded Int
+  playable        Boolean          @default(false)
+  imageUrl        String?
+  collection      CollectionItem[]
+  characters      Character[]
+}
+
+model CollectionItem {
+  id          String      @id @default(cuid())
+  userId      String
+  user        User        @relation(fields: [userId], references: [id])
+  gmId        String
+  gm          Grandmaster @relation(fields: [gmId], references: [id])
+  fragments   Int         @default(0)
+  collectedAt DateTime?
+
+  @@unique([userId, gmId])
+}
+
+model PackOpening {
+  id       String   @id @default(cuid())
+  userId   String
+  user     User     @relation(fields: [userId], references: [id])
+  result   String // JSON
+  openedAt DateTime @default(now())
+}
+
+model Puzzle {
+  id          String          @id @default(cuid())
+  code        String          @unique
+  fen         String
+  moves       String // JSON-массив UCI-ходов: [ход ученика, ответ, ход ученика, ...]
+  rating      Int
+  theme       String
+  title       String
+  hint        String?
+  active      Boolean         @default(true)
+  createdById String?
+  createdBy   User?           @relation(fields: [createdById], references: [id])
+  createdAt   DateTime        @default(now())
+  attempts    PuzzleAttempt[]
+}
+
+model Character {
+  id        String          @id @default(cuid())
+  userId    String
+  user      User            @relation(fields: [userId], references: [id])
+  gmId      String
+  gm        Grandmaster     @relation(fields: [gmId], references: [id])
+  rating    Int             @default(1000)
+  peak      Int             @default(1000)
+  xp        Int             @default(0)
+  solved    Int             @default(0)
+  failed    Int             @default(0)
+  streak    Int             @default(0)
+  bestStreak Int            @default(0)
+  active    Boolean         @default(true)
+  createdAt DateTime        @default(now())
+  endedAt   DateTime?
+  attempts  PuzzleAttempt[]
+
+  @@index([userId, active])
+}
+
+// status: PENDING | SOLVED | FAILED
+model PuzzleAttempt {
+  id           String    @id @default(cuid())
+  userId       String
+  user         User      @relation(fields: [userId], references: [id])
+  characterId  String
+  character    Character @relation(fields: [characterId], references: [id])
+  puzzleId     String
+  puzzle       Puzzle    @relation(fields: [puzzleId], references: [id])
+  status       String    @default("PENDING")
+  step         Int       @default(0)
+  ratingBefore Int
+  ratingAfter  Int?
+  xpGained     Int       @default(0)
+  createdAt    DateTime  @default(now())
+  finishedAt   DateTime?
+
+  @@index([userId, createdAt])
+}
+
+model Achievement {
+  id          String            @id @default(cuid())
+  code        String            @unique
+  title       String
+  description String
+  icon        String
+  category    String // TACTICS | GAME | COLLECTION | LESSONS | HOMEWORK
+  packs       Int               @default(0)
+  sort        Int               @default(0)
+  users       UserAchievement[]
+}
+
+model UserAchievement {
+  id            String      @id @default(cuid())
+  userId        String
+  user          User        @relation(fields: [userId], references: [id])
+  achievementId String
+  achievement   Achievement @relation(fields: [achievementId], references: [id])
+  earnedAt      DateTime    @default(now())
+
+  @@unique([userId, achievementId])
+}
