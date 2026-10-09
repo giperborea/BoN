@@ -140,7 +140,7 @@
     "fen": "6r1/7p/5pp1/p2k4/8/1P4P1/P4P1P/5BK1 w - - 0 1",
     "moves": [
       "f1c4",
-      "d5c5",
+      "d5d4",
       "c4g8"
     ],
     "rating": 1150,
@@ -277,7 +277,7 @@
     "fen": "7r/6k1/p2b1p2/1p4p1/8/P5P1/1Q3K2/R7 b - - 0 1",
     "moves": [
       "h8h2",
-      "f2g1",
+      "f2f1",
       "h2b2"
     ],
     "rating": 1330,
@@ -415,9 +415,7 @@
     "code": "P035",
     "fen": "r1b1kbnr/pppp1ppp/2n5/4P3/8/2B2N2/PqP1PPPP/RN1QKB1R b KQkq - 1 6",
     "moves": [
-      "f8b4",
-      "c3b4",
-      "c6b4"
+      "f8b4"
     ],
     "rating": 1580,
     "theme": "pin",
@@ -496,14 +494,10 @@
     "fen": "6k1/ppp5/8/PPP5/8/8/5PPP/6K1 w - - 0 1",
     "moves": [
       "b5b6",
-      "c7b6",
-      "a5a6",
-      "b7a6",
+      "a7b6",
       "c5c6",
-      "g8f8",
-      "c6c7",
-      "f8e7",
-      "c7c8q"
+      "b7c6",
+      "a5a6"
     ],
     "rating": 1740,
     "theme": "promotion",
